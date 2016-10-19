@@ -28,7 +28,7 @@ if (CMAKE_COMPILER_IS_GNUCXX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 endif (CMAKE_COMPILER_IS_GNUCXX)
 
-set(rtaudio_SOURCES RtAudio.cpp)
+set(rtaudio_SOURCES src/RtAudio.cpp)
 
 set(LINKLIBS)
 if (CMAKE_SYSTEM_NAME MATCHES "kNetBSD.*|NetBSD.*")
@@ -115,9 +115,8 @@ if (WIN32)
 endif (WIN32)
 
 cmake_policy(SET CMP0042 OLD)
-add_library(rtaudio SHARED ${rtaudio_SOURCES})
-add_library(rtaudio_static STATIC ${rtaudio_SOURCES})
-
+add_library(rtaudio ${rtaudio_SOURCES})
+target_include_directories(rtaudio PUBLIC src)
 target_link_libraries(rtaudio ${LINKLIBS})
 
 if (BUILD_TESTING)
